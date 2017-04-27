@@ -1,0 +1,31 @@
+<form action="/figures/<%= @figure.id %>" method="post">
+	<label for="figure_name">Figure Name:</label> 
+	<input type="text" name="figure[name]" id="figure_name" value="<%= @figure.name%>">
+	<br><br>
+
+	Titles:
+	<br>
+	<% Title.all.each { |title| %>
+		<input type="checkbox" name="figure[title_ids][]" value="<%= title.id %>" id="title_<%= title.id %>" <%='checked' if @figure.titles.include?(title)%>>
+		<label for="title_<%= title.id %>"><%= title.name %></label>
+	<% } %>
+	<br><br>
+	
+	or, create and associate a new title:
+	<input type="text" name="title[name]" id="new_title">
+
+	Landmarks:
+	<br>
+	<% Landmark.all.each { |landmark| %>
+		
+		<input type="checkbox" name="figure[landmark_ids][]" value="<%= landmark.id %>" id="landmark_<%= landmark.id %> <%='checked' if @figure.landmarks.include?(landmark)%>">
+		<label for="landmark_<%= landmark.id %>"><%= landmark.name %></label>
+	<% } %>
+	<br><br>
+
+	or, create and associate a new landmark:
+	<input type="text" name="landmark[name]" id="new_landmark">
+	
+	<br>
+	<input type="submit" value="Edit Figure" id="Edit Figure">
+</form>
